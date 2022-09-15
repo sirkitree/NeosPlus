@@ -99,6 +99,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Assets\MengerSpongeMesh.cs" />
+    <Compile Include="Components\Assets\MengerSponge.cs" />
     <Compile Include="Components\Assets\DynamicMesh.cs" />
     <Compile Include="Components\Assets\SierpinskiPyramid.cs" />
     <Compile Include="Components\Assets\SierpinskiPyramidMesh.cs" />
