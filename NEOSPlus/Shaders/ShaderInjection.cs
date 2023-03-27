@@ -16,10 +16,12 @@ namespace NEOSPlus.Shaders
         public static readonly Uri MToon = new("neosdb:///f9db0509b5413ae1449ca912aedb660aac028d29415c74a7767daf4fafa4c764.neoshader");
         public static readonly Uri ParallaxOcclusion = new("neosdb:///2539719620e32ca7d0cadd510c8ee088500cb76fc9cb46bb03d5aa586303e451.neoshader");
         public static readonly Uri Rain = new("");//add when compiled
+        public static readonly Uri water = new("");//add when compiled
 
 
         private static readonly List<Uri> Shaders = new()
         {
+            water,
             Rain,
             Hologram_Archived,
             NeosPlusTest,
