@@ -17,10 +17,13 @@ namespace NEOSPlus.Shaders
         public static readonly Uri ParallaxOcclusion = new("neosdb:///2539719620e32ca7d0cadd510c8ee088500cb76fc9cb46bb03d5aa586303e451.neoshader");
         public static readonly Uri Rain = new("");//add when compiled
         public static readonly Uri water = new("");//add when compiled
+        public static readonly Uri softocclusion = new("");//add when compiled
+
 
 
         private static readonly List<Uri> Shaders = new()
         {
+            softocclusion,
             water,
             Rain,
             Hologram_Archived,
