@@ -5,7 +5,7 @@ using NEOSPlus.Shaders;
 
 namespace NEOSPlus.Materials
 {
-    [Category("Assets/Materials/NeosPlus")]
+    [Category("Assets/Materials/NeosPlus/Toon")]
     public class MToon : SingleShaderMaterialProvider
     {
         protected override Uri ShaderURL => ShaderInjection.MToon;
