@@ -20,11 +20,10 @@ namespace NEOSPlus.Shaders
         public static readonly Uri softocclusion = new("");//add when compiled
 
         public static readonly Uri UnlitDisplacement = new("");//add when compiled
-
-
-
+        public static readonly Uri NeosPlusToon = new("");//add when compiled
         private static readonly List<Uri> Shaders = new()
         {
+            NeosPlusToon,
             UnlitDisplacement,
             softocclusion,
             water,
