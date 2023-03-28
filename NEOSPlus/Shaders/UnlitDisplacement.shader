@@ -1,58 +1,58 @@
-Shader "xlinka/UnlitDisplacement" 
+Shader "Unlit/UnlitDisplacement"
 {
-    Properties 
+    Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Displacement ("Displacement", Range(0.0, 1.0)) = 0.1
-        _Speed ("Speed", Range(0.01, 10.0)) = 1.0
-        _Color ("Color", Color) = (1,1,1,1)
+        _DisplacementTex("Displacement Texture", 2D) = "gray" {}
+        _Displacement("Displacement", Range(0, 1)) = 0.2
+        _Tess("Tessellation", Range(1, 32)) = 4
+        _Scale ("Texture Scale", Float) = 1.0
     }
- 
     SubShader
     {
         Tags { "RenderType"="Opaque" }
-        LOD 100
- 
-        Pass 
+        
+        CGPROGRAM
+        #pragma surface surf BlinnPhong addshadow fullforwardshadows vertex:vert tessellate:tessFixed
+        #pragma target 4.6
+
+        struct appdata 
         {
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #include "UnityCG.cginc"
- 
-            struct appdata 
-            {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
-            };
- 
-            struct v2f 
-            {
-                float2 uv : TEXCOORD0;
-                float4 vertex : SV_POSITION;
-            };
- 
-            sampler2D _MainTex;
-            float _Displacement;
-            float _Speed;
-            float4 _Color;
- 
-            v2f vert (appdata v) 
-            {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex + float4(0, 0, _Displacement * sin(_Time.y * _Speed), 0));
-                o.uv = v.uv;
-                return o;
-            }
- 
-            fixed4 frag (v2f i) : SV_Target 
-            {
-                fixed4 col = tex2D(_MainTex, i.uv) * _Color;
-                return col;
-            }
-            ENDCG
+            float4 vertex : POSITION;
+            float3 normal : NORMAL;
+            float2 texcoord : TEXCOORD0;
+        };
+
+        struct Input
+        {
+            float2 uv_MainTex;
+        };
+
+        sampler2D _MainTex;
+        float _Displacement;
+        sampler2D _DisplacementTex;
+        float _Tess;
+        float _Scale;
+
+        float4 tessFixed()
+        {
+            return _Tess;
         }
+
+        void vert(inout appdata v)
+        {
+            float d = tex2Dlod(_DisplacementTex, float4(v.texcoord.xy * _Scale, 0, 0)).r * _Displacement;
+            v.vertex.xyz += v.normal * d;
+        }
+
+        void surf(Input IN, inout SurfaceOutput o)
+        {
+            float2 UV = IN.uv_MainTex * _Scale;
+            half4 c = tex2D(_MainTex, UV);
+            o.Emission = c.rgb;
+
+        }
+        ENDCG
     }
- 
     FallBack "Diffuse"
 }
